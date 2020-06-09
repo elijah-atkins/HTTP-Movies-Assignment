@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from "react-router-dom";
+import axios from 'axios';
 
-
+//initial state to clear form
 const FormState = {
   title: '',
   director: '',
@@ -9,52 +11,79 @@ const FormState = {
 }
 
 export const MovieForm = ({ movie}) => {
-  console.log('MovieForm',movie )
+  const { push } = useHistory();
+ // console.log('MovieForm',movie )
+ //create state object using useState
+ const [editMovie, setEditMovie] = useState(FormState);
   //use props to set initial state
-  const [list, setList] = useState(FormState);
+
 
   useEffect(()=>{
-    setList(movie)
-
+    setEditMovie(movie)
   },[movie])
 
+  const changeHandler = e => {
+    setEditMovie({
+      ...editMovie,
+      [e.target.name]: e.target.value
+    });
+  }
+  const handleSubmit = e => {
+    e.preventDefault();
+    // make a PUT request to edit the item
+    axios
+      .put(`http://localhost:5000/api/movies/${editMovie.id}`, editMovie)
+      .then(res => {
+       console.log(res.data);
+        push(`/movies/${editMovie.id}`);
+      })
+      .catch(err =>
+        console.error(
+          "UpdateForm.js: handleSubmit: ",
+          err.message,
+          err.response
+        )
+      );
+  };
   return(
         <div>
                   <h2>Update Movie</h2>
-      <form onSubmit={e=>e.preventDefault()}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="title"
-   //       onChange={changeHandler}
+          onChange={changeHandler}
           placeholder="Title"
-          value={list.title}
+          value={editMovie.title}
         />
         <div className="baseline" />
 
         <input
           type="text"
           name="director"
-    //      onChange={changeHandler}
+          onChange={changeHandler}
           placeholder="Director"
-          value={list.director}
+          value={editMovie.director}
         />
         <div className="baseline" />
 
         <input
-          type="text"
+          type="number"
+          min="0"
+          max="100"
           name="metascore"
- //         onChange={changeHandler}
+          onChange={changeHandler}
           placeholder="Metascore"
-         value={list.metascore}
+         value={editMovie.metascore}
         />
         <div className="baseline" />
 
-        <input
-          type="array"
+        <textarea
+          type="text"
           name="stars"
- //         onChange={changeHandler}
+          onChange={changeHandler}
           placeholder="Stars"
-          value={list.stars}
+          value={editMovie.stars}
         />
         <div className="baseline" />
 
