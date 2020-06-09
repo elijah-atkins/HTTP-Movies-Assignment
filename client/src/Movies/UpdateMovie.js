@@ -3,10 +3,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import MovieForm from "./MovieForm";
 
-function UpdateMovie({ addToSavedList }) {
+function UpdateMovie() {
   const [movie, setMovie] = useState(null);
   const params = useParams();
-
+    
   const fetchMovie = (id) => {
     axios
       .get(`http://localhost:5000/api/movies/${id}`)
@@ -14,9 +14,6 @@ function UpdateMovie({ addToSavedList }) {
       .catch((err) => console.log(err.response));
   };
 
-  const saveMovie = () => {
-    addToSavedList(movie);
-  };
 
   useEffect(() => {
     fetchMovie(params.id);

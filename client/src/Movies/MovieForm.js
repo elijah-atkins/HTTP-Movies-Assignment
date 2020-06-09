@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-export const MovieForm = props => {
+
+const FormState = {
+  title: '',
+  director: '',
+  metascore: '',
+  stars: []
+}
+
+export const MovieForm = ({ movie}) => {
+  console.log('MovieForm',movie )
   //use props to set initial state
+  const [list, setList] = useState(FormState);
 
-  const FormState = {
-    title: '',
-    director: '',
-    metascore: '',
-    stars: ''
-  }
+  useEffect(()=>{
+    setList(movie)
 
-  
- 
-    return(
+  },[movie])
+
+  return(
         <div>
-                  <h2>Add New Movie</h2>
+                  <h2>Update Movie</h2>
       <form onSubmit={e=>e.preventDefault()}>
         <input
           type="text"
           name="title"
    //       onChange={changeHandler}
           placeholder="Title"
-          value={FormState.title}
+          value={list.title}
         />
         <div className="baseline" />
 
@@ -30,7 +36,7 @@ export const MovieForm = props => {
           name="director"
     //      onChange={changeHandler}
           placeholder="Director"
-     //     value={movie.director}
+          value={list.director}
         />
         <div className="baseline" />
 
@@ -39,7 +45,7 @@ export const MovieForm = props => {
           name="metascore"
  //         onChange={changeHandler}
           placeholder="Metascore"
-     //     value={movie.metascore}
+         value={list.metascore}
         />
         <div className="baseline" />
 
@@ -48,7 +54,7 @@ export const MovieForm = props => {
           name="stars"
  //         onChange={changeHandler}
           placeholder="Stars"
-       //   value={movie.stars}
+          value={list.stars}
         />
         <div className="baseline" />
 
