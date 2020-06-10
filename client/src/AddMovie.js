@@ -4,45 +4,40 @@ import axios from 'axios';
 
 //initial state to clear form
 const FormState = {
+  id: '',
   title: '',
   director: '',
   metascore: '',
   stars: []
 }
 
-export const MovieForm = ({ movie }) => {
+export const AddMovie = () => {
   const { push } = useHistory();
  // console.log('MovieForm',movie )
  //create state object using useState
- const [editMovie, setEditMovie] = useState(FormState);
+ const [addMovie, setAddMovie] = useState(FormState);
   //use props to set initial state
 
 
-  useEffect(()=>{
-    setEditMovie(movie)
-  },[movie])
-
   const changeHandler = e => {
-    setEditMovie({
-      ...editMovie,
+    setAddMovie({
+      ...addMovie,
       [e.target.name]: e.target.value
     });
   }
   const handleSubmit = e => {
     e.preventDefault();
-    // make a PUT request to edit the item
     const newMovie = {
-      id: editMovie.id,
-      title: editMovie.title,
-      director: editMovie.director,
-      metascore: editMovie.metascore,
-      stars: editMovie.stars.split(",")
-  }
+        title: addMovie.title,
+        director: addMovie.director,
+        metascore: addMovie.metascore,
+        stars: addMovie.stars.split(",")
+    }
     axios
-      .put(`http://localhost:5000/api/movies/${editMovie.id}`, newMovie)
+      .post(`http://localhost:5000/api/movies/`, newMovie)
       .then(res => {
-
-        push(`/movies/${editMovie.id}`);
+       console.log(res.data);
+        push(`/`);
       })
       .catch(err =>
         console.error(
@@ -54,14 +49,14 @@ export const MovieForm = ({ movie }) => {
   };
   return(
         <div>
-                  <h2>Update Movie</h2>
+                  <h2>Add Movie</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="title"
           onChange={changeHandler}
           placeholder="Title"
-          value={editMovie.title}
+          value={addMovie.title}
         />
         <div className="baseline" />
 
@@ -70,7 +65,7 @@ export const MovieForm = ({ movie }) => {
           name="director"
           onChange={changeHandler}
           placeholder="Director"
-          value={editMovie.director}
+          value={addMovie.director}
         />
         <div className="baseline" />
 
@@ -81,7 +76,7 @@ export const MovieForm = ({ movie }) => {
           name="metascore"
           onChange={changeHandler}
           placeholder="Metascore"
-         value={editMovie.metascore}
+         value={addMovie.metascore}
         />
         <div className="baseline" />
 
@@ -90,14 +85,14 @@ export const MovieForm = ({ movie }) => {
           name="stars"
           onChange={changeHandler}
           placeholder="Stars"
-          value={editMovie.stars}
+          value={addMovie.stars}
         />
         <div className="baseline" />
 
-        <button className="form-submit">Update Movie</button>
+        <button className="form-submit">Add Movie</button>
       </form>
         </div>
     )
 };
 
-export default MovieForm;
+export default AddMovie;

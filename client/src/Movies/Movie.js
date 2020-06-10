@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
 function Movie({ addToSavedList, setMovieList }) {
@@ -18,7 +18,7 @@ function Movie({ addToSavedList, setMovieList }) {
       e.preventDefault();
       axios
         .delete(`http://localhost:5000/api/movies/${params.id}`)
-        .then(res => {console.log(res.data)
+        .then(res => {console.log(res)
         push(`/`)})
         .catch(err =>
           console.error("Movie.js: handleDelete: err: ", err.message, err.response)
@@ -46,6 +46,9 @@ function Movie({ addToSavedList, setMovieList }) {
       </div>
       <div className="delete-button" onClick={deleteMovie}>
         Delete
+      </div>
+      <div className="edit-button">
+        <Link to={`/update-movie/${params.id}`}>Edit</Link>
       </div>
     </div>
   );
