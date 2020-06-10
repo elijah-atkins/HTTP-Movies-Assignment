@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 //initial state to clear form
@@ -10,7 +10,7 @@ const FormState = {
   stars: []
 }
 
-export const MovieForm = ({ movie}) => {
+export const MovieForm = ({ movie }) => {
   const { push } = useHistory();
  // console.log('MovieForm',movie )
  //create state object using useState
