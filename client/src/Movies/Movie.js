@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
 function Movie({ addToSavedList, setMovieList }) {
@@ -47,9 +47,7 @@ function Movie({ addToSavedList, setMovieList }) {
       <div className="delete-button" onClick={deleteMovie}>
         Delete
       </div>
-      <div className="edit-button">
-        <Link to={`/update-movie/${params.id}`}>Edit</Link>
-      </div>
+
     </div>
   );
 }

@@ -1,10 +1,18 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 
 const MovieCard = props => {
-  const { title, director, metascore, stars } = props.movie;
+  const { push } = useHistory();
+  const { title, director, metascore, stars, id } = props.movie;
+  const editMovie = () => {
+    push(`/update-movie/${id}`)
+  }
   return (
     <div className="movie-card">
-      <h2>{title}</h2>
+<div className="edit-button" onClick={editMovie}>
+<h2>{title}</h2>
+</div>
       <div className="movie-director">
         Director: <em>{director}</em>
       </div>

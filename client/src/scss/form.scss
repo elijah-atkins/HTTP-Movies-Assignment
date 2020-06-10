@@ -1,0 +1,26 @@
+.movie-form {
+    width: 100vw;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    form {
+        width: 80vw;
+    }
+    input {
+        width: 80vw;
+    }
+    textarea {
+        width: 80vw;
+    }
+    button {
+        width: 20vw;
+    }
+}
+.movie-list {
+    a:hover{
+        color: $black;
+    }
+    display: flex;
+    flex-direction: column-reverse;
+}

@@ -36,7 +36,7 @@ export const MovieForm = ({ movie }) => {
       title: editMovie.title,
       director: editMovie.director,
       metascore: editMovie.metascore,
-      stars: editMovie.stars.split(",")
+      stars: (editMovie.stars === movie.stars) ? editMovie.stars : [...editMovie.stars.split(",")]
   }
     axios
       .put(`http://localhost:5000/api/movies/${editMovie.id}`, newMovie)
@@ -53,7 +53,7 @@ export const MovieForm = ({ movie }) => {
       );
   };
   return(
-        <div>
+        <div className="movie-form">
                   <h2>Update Movie</h2>
       <form onSubmit={handleSubmit}>
         <input

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
@@ -48,7 +48,7 @@ export const AddMovie = () => {
       );
   };
   return(
-        <div>
+        <div className="movie-form">
                   <h2>Add Movie</h2>
       <form onSubmit={handleSubmit}>
         <input
